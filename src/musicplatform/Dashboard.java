@@ -8,16 +8,22 @@ import musicplatform.Albums.Edm;
 import musicplatform.Albums.Bollywood00s;
 import musicplatform.Albums.MostPlayed;
 import musicplatform.Albums.CurrentTrending;
-import musicplatform.ArtistsPanels.EdSheeran;
-import musicplatform.ArtistsPanels.TheChainsmokers;
-import musicplatform.ArtistsPanels.AtifAslam;
 import musicplatform.ArtistsPanels.ArijitSingh;
 import java.awt.Image;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import javax.swing.ImageIcon;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import musicplatform.Albums.BestOfRK;
+import musicplatform.Albums.BestOfSK;
+import musicplatform.Albums.DanceParty;
+import musicplatform.Albums.SadMixtape;
+import musicplatform.ArtistsPanels.MustafaZahid;
+import musicplatform.ArtistsPanels.Pritam;
+import musicplatform.ArtistsPanels.ShreyaGhoshal;
+
 
 /**
  *
@@ -35,6 +41,7 @@ public class Dashboard extends javax.swing.JFrame {
         loadAlbums();
         loadArtist();
         loadPlaylists();
+        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
     }
 
     public void loadPlaylists() {
@@ -50,23 +57,19 @@ public class Dashboard extends javax.swing.JFrame {
                     switch (playlistCount) {
                         case 0:
                             playlist1.setText(playlistName);
-                            PlaylistData.setPlaylistId1(id);
-                            System.out.println(id);
+                            PlaylistData.setPlaylistId1(id);                            
                             break;
                         case 1:
                             playlist2.setText(playlistName);
-                            PlaylistData.setPlaylistId2(id);
-                            System.out.println(id);
+                            PlaylistData.setPlaylistId2(id);                            
                             break;
                         case 2:
                             playlist3.setText(playlistName);
-                            PlaylistData.setPlaylistId3(id);
-                            System.out.println(id);
+                            PlaylistData.setPlaylistId3(id);                            
                             break;
                         case 3:
                             playlist4.setText(playlistName);
-                            PlaylistData.setPlaylistId4(id);
-                            System.out.println(id);
+                            PlaylistData.setPlaylistId4(id);                            
                             break;                        
                     }
                     playlistCount++;
@@ -99,10 +102,10 @@ public class Dashboard extends javax.swing.JFrame {
     }
 
     public void loadAlbums() {
-        String albumimgQuery1 = "SELECT album_cover_image FROM albums WHERE ALBUMID=1";
-        String albumimgQuery2 = "SELECT album_cover_image FROM albums WHERE ALBUMID=4";
-        String albumimgQuery3 = "SELECT album_cover_image FROM albums WHERE ALBUMID=2";
-        String albumimgQuery4 = "SELECT album_cover_image FROM albums WHERE ALBUMID=3";
+        String albumimgQuery1 = "SELECT album_cover_image FROM albums WHERE ALBUMID=5";
+        String albumimgQuery2 = "SELECT album_cover_image FROM albums WHERE ALBUMID=7";
+        String albumimgQuery3 = "SELECT album_cover_image FROM albums WHERE ALBUMID=8";
+        String albumimgQuery4 = "SELECT album_cover_image FROM albums WHERE ALBUMID=6";
         try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/mydb", "root", "Dhruv@99269!")) {
             try (java.sql.PreparedStatement statement = connection.prepareStatement(albumimgQuery1)) {
                 java.sql.ResultSet resultSet = statement.executeQuery();
@@ -182,9 +185,9 @@ public class Dashboard extends javax.swing.JFrame {
 
     private void loadArtist() {
         String albumimgQuery1 = "SELECT artist_cover_image FROM artist WHERE ARTISTID=1";
-        String albumimgQuery2 = "SELECT artist_cover_image FROM artist WHERE ARTISTID=4";
-        String albumimgQuery3 = "SELECT artist_cover_image FROM artist WHERE ARTISTID=2";
-        String albumimgQuery4 = "SELECT artist_cover_image FROM artist WHERE ARTISTID=3";
+        String albumimgQuery2 = "SELECT artist_cover_image FROM artist WHERE ARTISTID=10";
+        String albumimgQuery3 = "SELECT artist_cover_image FROM artist WHERE ARTISTID=8";
+        String albumimgQuery4 = "SELECT artist_cover_image FROM artist WHERE ARTISTID=16";
         try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/mydb", "root", "Dhruv@99269!")) {
             try (java.sql.PreparedStatement statement = connection.prepareStatement(albumimgQuery1)) {
                 java.sql.ResultSet resultSet = statement.executeQuery();
@@ -772,56 +775,56 @@ public class Dashboard extends javax.swing.JFrame {
     private void artist1MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_artist1MouseReleased
         // TODO add your handling code here:
         dispose();
-        AtifAslam art = new AtifAslam();
+        ArijitSingh art=new ArijitSingh();
         art.setVisible(true);
     }//GEN-LAST:event_artist1MouseReleased
 
     private void artist2MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_artist2MouseReleased
         // TODO add your handling code here:
         dispose();
-        ArijitSingh art = new ArijitSingh();
+        ShreyaGhoshal art=new ShreyaGhoshal();
         art.setVisible(true);
     }//GEN-LAST:event_artist2MouseReleased
 
     private void artist3MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_artist3MouseReleased
         // TODO add your handling code here:
         dispose();
-        TheChainsmokers art = new TheChainsmokers();
+        Pritam art=new Pritam();
         art.setVisible(true);
     }//GEN-LAST:event_artist3MouseReleased
 
     private void artist4MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_artist4MouseReleased
         // TODO add your handling code here:
         dispose();
-        EdSheeran art = new EdSheeran();
+        MustafaZahid art=new MustafaZahid();
         art.setVisible(true);
     }//GEN-LAST:event_artist4MouseReleased
 
     private void album1MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_album1MouseReleased
         // TODO add your handling code here:
         dispose();
-        CurrentTrending alb = new CurrentTrending();
+        BestOfSK alb=new BestOfSK();
         alb.setVisible(true);
     }//GEN-LAST:event_album1MouseReleased
 
     private void album2MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_album2MouseReleased
         // TODO add your handling code here:
         dispose();
-        MostPlayed alb = new MostPlayed();
+        DanceParty alb=new DanceParty();
         alb.setVisible(true);
     }//GEN-LAST:event_album2MouseReleased
 
     private void album3MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_album3MouseReleased
         // TODO add your handling code here:
         dispose();
-        Edm alb = new Edm();
+        SadMixtape alb=new SadMixtape();
         alb.setVisible(true);
     }//GEN-LAST:event_album3MouseReleased
 
     private void album4MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_album4MouseReleased
         // TODO add your handling code here:
         dispose();
-        Bollywood00s alb = new Bollywood00s();
+        BestOfRK alb=new BestOfRK();
         alb.setVisible(true);
     }//GEN-LAST:event_album4MouseReleased
 

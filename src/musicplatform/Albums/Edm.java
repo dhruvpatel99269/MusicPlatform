@@ -16,7 +16,6 @@ import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javazoom.jl.decoder.JavaLayerException;
 import javazoom.jl.player.advanced.AdvancedPlayer;
-import musicplatform.ArtistsPanels.AtifAslam;
 import musicplatform.Dashboard;
 import musicplatform.Songs;
 import musicplatform.UserData;

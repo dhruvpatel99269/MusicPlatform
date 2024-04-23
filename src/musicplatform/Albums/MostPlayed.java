@@ -16,7 +16,6 @@ import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javazoom.jl.decoder.JavaLayerException;
 import javazoom.jl.player.advanced.AdvancedPlayer;
-import musicplatform.ArtistsPanels.AtifAslam;
 import musicplatform.Dashboard;
 import musicplatform.Songs;
 import musicplatform.UserData;
@@ -73,7 +72,6 @@ public class MostPlayed extends javax.swing.JFrame {
                             + "JOIN albumtracks ON albums.albumid = albumtracks.albumid "
                             + "JOIN tracks ON albumtracks.trackid = tracks.trackid "
                             + "WHERE albums.albumid = ?";
-
 
         //String playlistTracksQuery = "SELECT song_cover_image,song_title, song_artist,duration from tracks where trackid=1";
         try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/mydb", "root", "Dhruv@99269!")) {

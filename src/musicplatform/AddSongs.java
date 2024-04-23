@@ -150,8 +150,8 @@ public class AddSongs extends javax.swing.JFrame {
         String audioPath = "C:/Users/DHRUV/Downloads/Tune Jo Na Kaha - New York 128 Kbps.mp3";
         insertSong(songArtist, songTitle, new File(imagePath), dur, new File(audioPath), sid);*/                                         
         // TODO add your handling code here:
-        String imagePath = "D:/songs/Albums/Most Played All Time/1 album cover.jpeg";
-        String albumTitle = "Most Played All Time";        
+        String imagePath = "C:/Users/DHRUV/Desktop/songs/Albums/Rainy Monsoon/1 album cover.jpeg";
+        String albumTitle = "Rainy Monsoon";        
         insertSong(albumTitle, new File(imagePath));        
     }//GEN-LAST:event_jButton1ActionPerformed
 

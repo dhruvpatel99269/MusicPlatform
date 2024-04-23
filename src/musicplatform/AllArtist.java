@@ -5,20 +5,20 @@
 package musicplatform;
 
 import musicplatform.ArtistsPanels.ShreyaGhoshal;
-import musicplatform.ArtistsPanels.Shaan;
 import musicplatform.ArtistsPanels.Pritam;
 import musicplatform.ArtistsPanels.KK;
-import musicplatform.ArtistsPanels.ImagineDragons;
-import musicplatform.ArtistsPanels.EdSheeran;
-import musicplatform.ArtistsPanels.TheChainsmokers;
-import musicplatform.ArtistsPanels.AtifAslam;
 import musicplatform.ArtistsPanels.ArijitSingh;
-import musicplatform.ArtistsPanels.MartinGarrix;
 import java.awt.Image;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import musicplatform.ArtistsPanels.AmitabhBhattacharya;
+import musicplatform.ArtistsPanels.BPraak;
+import musicplatform.ArtistsPanels.MustafaZahid;
+import musicplatform.ArtistsPanels.PalakMuchhal;
+import musicplatform.ArtistsPanels.TanishkBagchi;
 
 /**
  *
@@ -33,28 +33,30 @@ public class AllArtist extends javax.swing.JFrame {
         initComponents();
         loadArtist();        
         int useriD=UserData.getUserId();
+        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
     }
     
     private void loadArtist() {
-        String albumimgQuery1 = "SELECT artist_cover_image FROM artist WHERE ARTISTID=1";
-        String albumimgQuery2 = "SELECT artist_cover_image FROM artist WHERE ARTISTID=2";
-        String albumimgQuery3 = "SELECT artist_cover_image FROM artist WHERE ARTISTID=3";
-        String albumimgQuery4 = "SELECT artist_cover_image FROM artist WHERE ARTISTID=4";        
-        String albumimgQuery5 = "SELECT artist_cover_image FROM artist WHERE ARTISTID=5";        
-        String albumimgQuery6 = "SELECT artist_cover_image FROM artist WHERE ARTISTID=6";        
-        String albumimgQuery7 = "SELECT artist_cover_image FROM artist WHERE ARTISTID=7"; 
-        String albumimgQuery8 = "SELECT artist_cover_image FROM artist WHERE ARTISTID=8"; 
-        String albumimgQuery9 = "SELECT artist_cover_image FROM artist WHERE ARTISTID=9"; 
-        String albumimgQuery10 = "SELECT artist_cover_image FROM artist WHERE ARTISTID=10"; 
+        String albumimgQuery1 = "SELECT artist_cover_image, artistname FROM artist WHERE ARTISTID=1";
+        String albumimgQuery2 = "SELECT artist_cover_image, artistname FROM artist WHERE ARTISTID=11";
+        String albumimgQuery3 = "SELECT artist_cover_image, artistname FROM artist WHERE ARTISTID=13";
+        String albumimgQuery4 = "SELECT artist_cover_image, artistname FROM artist WHERE ARTISTID=14";        
+        String albumimgQuery5 = "SELECT artist_cover_image, artistname FROM artist WHERE ARTISTID=16";        
+        String albumimgQuery6 = "SELECT artist_cover_image, artistname FROM artist WHERE ARTISTID=6";        
+        String albumimgQuery7 = "SELECT artist_cover_image, artistname FROM artist WHERE ARTISTID=8"; 
+        String albumimgQuery8 = "SELECT artist_cover_image, artistname FROM artist WHERE ARTISTID=10"; 
+        String albumimgQuery9 = "SELECT artist_cover_image, artistname FROM artist WHERE ARTISTID=15";         
         try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/mydb", "root", "Dhruv@99269!")) {
             try (java.sql.PreparedStatement statement = connection.prepareStatement(albumimgQuery1)) {
                 java.sql.ResultSet resultSet = statement.executeQuery();
                 if (resultSet.next()) {
+                    String artist=resultSet.getString("artistname");
                     byte[] imageBytes = resultSet.getBytes("artist_cover_image");                    
                     ImageIcon imageIcon = new ImageIcon(imageBytes);
                     Image image = imageIcon.getImage();
                     Image scaledImage = image.getScaledInstance(208, 200, java.awt.Image.SCALE_SMOOTH);
                     artistc1.setIcon(new ImageIcon(scaledImage));
+                    artistn1.setText(artist);
                 } else {
                     System.err.println("Album cover image not found.");
                 }
@@ -69,11 +71,13 @@ public class AllArtist extends javax.swing.JFrame {
             try (java.sql.PreparedStatement statement = connection.prepareStatement(albumimgQuery2)) {
                 java.sql.ResultSet resultSet = statement.executeQuery();
                 if (resultSet.next()) {
+                    String artist=resultSet.getString("artistname");
                     byte[] imageBytes = resultSet.getBytes("artist_cover_image");                    
                     ImageIcon imageIcon = new ImageIcon(imageBytes);
                     Image image = imageIcon.getImage();
                     Image scaledImage = image.getScaledInstance(208, 200, java.awt.Image.SCALE_SMOOTH);
                     artistc2.setIcon(new ImageIcon(scaledImage));
+                    artistn2.setText(artist);
                 } else {
                     System.err.println("Album cover image not found.");
                 }
@@ -88,11 +92,13 @@ public class AllArtist extends javax.swing.JFrame {
             try (java.sql.PreparedStatement statement = connection.prepareStatement(albumimgQuery3)) {
                 java.sql.ResultSet resultSet = statement.executeQuery();
                 if (resultSet.next()) {
+                    String artist=resultSet.getString("artistname");
                     byte[] imageBytes = resultSet.getBytes("artist_cover_image");                    
                     ImageIcon imageIcon = new ImageIcon(imageBytes);
                     Image image = imageIcon.getImage();
                     Image scaledImage = image.getScaledInstance(208, 200, java.awt.Image.SCALE_SMOOTH);
                     artistc3.setIcon(new ImageIcon(scaledImage));
+                    artistn3.setText(artist);
                 } else {
                     System.err.println("Album cover image not found.");
                 }
@@ -107,11 +113,13 @@ public class AllArtist extends javax.swing.JFrame {
             try (java.sql.PreparedStatement statement = connection.prepareStatement(albumimgQuery4)) {
                 java.sql.ResultSet resultSet = statement.executeQuery();
                 if (resultSet.next()) {
+                    String artist=resultSet.getString("artistname");
                     byte[] imageBytes = resultSet.getBytes("artist_cover_image");                    
                     ImageIcon imageIcon = new ImageIcon(imageBytes);
                     Image image = imageIcon.getImage();
                     Image scaledImage = image.getScaledInstance(208, 200, java.awt.Image.SCALE_SMOOTH);
                     artistc4.setIcon(new ImageIcon(scaledImage));
+                    artistn4.setText(artist);
                 } else {
                     System.err.println("Album cover image not found.");
                 }
@@ -126,11 +134,13 @@ public class AllArtist extends javax.swing.JFrame {
             try (java.sql.PreparedStatement statement = connection.prepareStatement(albumimgQuery5)) {
                 java.sql.ResultSet resultSet = statement.executeQuery();
                 if (resultSet.next()) {
+                    String artist=resultSet.getString("artistname");
                     byte[] imageBytes = resultSet.getBytes("artist_cover_image");                    
                     ImageIcon imageIcon = new ImageIcon(imageBytes);
                     Image image = imageIcon.getImage();
                     Image scaledImage = image.getScaledInstance(208, 200, java.awt.Image.SCALE_SMOOTH);
                     artistc5.setIcon(new ImageIcon(scaledImage));
+                    artistn5.setText(artist);
                 } else {
                     System.err.println("Album cover image not found.");
                 }
@@ -145,11 +155,13 @@ public class AllArtist extends javax.swing.JFrame {
             try (java.sql.PreparedStatement statement = connection.prepareStatement(albumimgQuery6)) {
                 java.sql.ResultSet resultSet = statement.executeQuery();
                 if (resultSet.next()) {
+                    String artist=resultSet.getString("artistname");
                     byte[] imageBytes = resultSet.getBytes("artist_cover_image");                    
                     ImageIcon imageIcon = new ImageIcon(imageBytes);
                     Image image = imageIcon.getImage();
                     Image scaledImage = image.getScaledInstance(208, 200, java.awt.Image.SCALE_SMOOTH);
                     artistc6.setIcon(new ImageIcon(scaledImage));
+                    artistn6.setText(artist);
                 } else {
                     System.err.println("Album cover image not found.");
                 }
@@ -164,11 +176,13 @@ public class AllArtist extends javax.swing.JFrame {
             try (java.sql.PreparedStatement statement = connection.prepareStatement(albumimgQuery7)) {
                 java.sql.ResultSet resultSet = statement.executeQuery();
                 if (resultSet.next()) {
+                    String artist=resultSet.getString("artistname");
                     byte[] imageBytes = resultSet.getBytes("artist_cover_image");                    
                     ImageIcon imageIcon = new ImageIcon(imageBytes);
                     Image image = imageIcon.getImage();
                     Image scaledImage = image.getScaledInstance(208, 200, java.awt.Image.SCALE_SMOOTH);
                     artistc7.setIcon(new ImageIcon(scaledImage));
+                    artistn7.setText(artist);
                 } else {
                     System.err.println("Album cover image not found.");
                 }
@@ -183,11 +197,13 @@ public class AllArtist extends javax.swing.JFrame {
             try (java.sql.PreparedStatement statement = connection.prepareStatement(albumimgQuery8)) {
                 java.sql.ResultSet resultSet = statement.executeQuery();
                 if (resultSet.next()) {
+                    String artist=resultSet.getString("artistname");
                     byte[] imageBytes = resultSet.getBytes("artist_cover_image");                    
                     ImageIcon imageIcon = new ImageIcon(imageBytes);
                     Image image = imageIcon.getImage();
                     Image scaledImage = image.getScaledInstance(208, 200, java.awt.Image.SCALE_SMOOTH);
                     artistc8.setIcon(new ImageIcon(scaledImage));
+                    artistn8.setText(artist);
                 } else {
                     System.err.println("Album cover image not found.");
                 }
@@ -202,11 +218,13 @@ public class AllArtist extends javax.swing.JFrame {
             try (java.sql.PreparedStatement statement = connection.prepareStatement(albumimgQuery9)) {
                 java.sql.ResultSet resultSet = statement.executeQuery();
                 if (resultSet.next()) {
+                    String artist=resultSet.getString("artistname");
                     byte[] imageBytes = resultSet.getBytes("artist_cover_image");                    
                     ImageIcon imageIcon = new ImageIcon(imageBytes);
                     Image image = imageIcon.getImage();
                     Image scaledImage = image.getScaledInstance(208, 200, java.awt.Image.SCALE_SMOOTH);
                     artistc9.setIcon(new ImageIcon(scaledImage));
+                    artistn9.setText(albumimgQuery9);
                 } else {
                     System.err.println("Album cover image not found.");
                 }
@@ -215,26 +233,7 @@ public class AllArtist extends javax.swing.JFrame {
             }
         } catch (SQLException ex) {
             System.err.println("Error connecting to the database: " + ex.getMessage());
-        } 
-        
-        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/mydb", "root", "Dhruv@99269!")) {
-            try (java.sql.PreparedStatement statement = connection.prepareStatement(albumimgQuery10)) {
-                java.sql.ResultSet resultSet = statement.executeQuery();
-                if (resultSet.next()) {
-                    byte[] imageBytes = resultSet.getBytes("artist_cover_image");                    
-                    ImageIcon imageIcon = new ImageIcon(imageBytes);
-                    Image image = imageIcon.getImage();
-                    Image scaledImage = image.getScaledInstance(208, 200, java.awt.Image.SCALE_SMOOTH);
-                    artistc10.setIcon(new ImageIcon(scaledImage));
-                } else {
-                    System.err.println("Album cover image not found.");
-                }
-            } catch (SQLException ex) {
-                System.err.println("Error executing album image query: " + ex.getMessage());
-            }
-        } catch (SQLException ex) {
-            System.err.println("Error connecting to the database: " + ex.getMessage());
-        } 
+        }                 
     }
 
     /**
@@ -286,9 +285,6 @@ public class AllArtist extends javax.swing.JFrame {
         jPanel10 = new javax.swing.JPanel();
         artistc9 = new javax.swing.JLabel();
         artistn9 = new javax.swing.JLabel();
-        jPanel11 = new javax.swing.JPanel();
-        artistc10 = new javax.swing.JLabel();
-        artistn10 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -686,36 +682,6 @@ public class AllArtist extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        artistc10.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseReleased(java.awt.event.MouseEvent evt) {
-                artistc10MouseReleased(evt);
-            }
-        });
-
-        artistn10.setFont(new java.awt.Font("Lucida Calligraphy", 0, 18)); // NOI18N
-        artistn10.setText("Shreya Ghoshal");
-
-        javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
-        jPanel11.setLayout(jPanel11Layout);
-        jPanel11Layout.setHorizontalGroup(
-            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel11Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(artistc10, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(artistn10, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanel11Layout.setVerticalGroup(
-            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel11Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(artistc10, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(artistn10, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
         javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
         jPanel12.setLayout(jPanel12Layout);
         jPanel12Layout.setHorizontalGroup(
@@ -739,10 +705,7 @@ public class AllArtist extends javax.swing.JFrame {
                         .addComponent(jPanel17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jPanel18, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel12Layout.createSequentialGroup()
-                        .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel12Layout.setVerticalGroup(
@@ -761,9 +724,7 @@ public class AllArtist extends javax.swing.JFrame {
                     .addComponent(jPanel17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel18, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -862,35 +823,35 @@ public class AllArtist extends javax.swing.JFrame {
     private void artistc1MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_artistc1MouseReleased
         // TODO add your handling code here:
         dispose();
-        AtifAslam art=new AtifAslam();
-        art.setVisible(true);
+        ArijitSingh art=new ArijitSingh();
+        art.setVisible(true);       
     }//GEN-LAST:event_artistc1MouseReleased
 
     private void artistc2MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_artistc2MouseReleased
         // TODO add your handling code here:
         dispose();
-        ArijitSingh art=new ArijitSingh();
+        AmitabhBhattacharya art=new AmitabhBhattacharya();
         art.setVisible(true);        
     }//GEN-LAST:event_artistc2MouseReleased
 
     private void artistc3MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_artistc3MouseReleased
         // TODO add your handling code here:
         dispose();
-        TheChainsmokers art=new TheChainsmokers();
+        BPraak art=new BPraak();
         art.setVisible(true);
     }//GEN-LAST:event_artistc3MouseReleased
 
     private void artistc4MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_artistc4MouseReleased
         // TODO add your handling code here:
         dispose();
-        EdSheeran art=new EdSheeran();
-        art.setVisible(true);
+        PalakMuchhal art=new PalakMuchhal();
+        art.setVisible(true);             
     }//GEN-LAST:event_artistc4MouseReleased
 
     private void artistc5MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_artistc5MouseReleased
         // TODO add your handling code here:
         dispose();
-        ImagineDragons art=new ImagineDragons();
+        MustafaZahid art=new MustafaZahid();
         art.setVisible(true);
     }//GEN-LAST:event_artistc5MouseReleased
 
@@ -904,30 +865,23 @@ public class AllArtist extends javax.swing.JFrame {
     private void artistc7MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_artistc7MouseReleased
         // TODO add your handling code here:
         dispose();
-        MartinGarrix art=new MartinGarrix();
-        art.setVisible(true);
+        Pritam art=new Pritam();
+        art.setVisible(true);               
     }//GEN-LAST:event_artistc7MouseReleased
 
     private void artistc8MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_artistc8MouseReleased
         // TODO add your handling code here:
         dispose();
-        Pritam art=new Pritam();
+        ShreyaGhoshal art=new ShreyaGhoshal();
         art.setVisible(true);
     }//GEN-LAST:event_artistc8MouseReleased
 
     private void artistc9MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_artistc9MouseReleased
         // TODO add your handling code here:
         dispose();
-        Shaan art=new Shaan();
+        TanishkBagchi art=new TanishkBagchi();
         art.setVisible(true);
     }//GEN-LAST:event_artistc9MouseReleased
-
-    private void artistc10MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_artistc10MouseReleased
-        // TODO add your handling code here:
-        dispose();
-        ShreyaGhoshal art=new ShreyaGhoshal();
-        art.setVisible(true);
-    }//GEN-LAST:event_artistc10MouseReleased
 
     /**
      * @param args the command line arguments
@@ -966,7 +920,6 @@ public class AllArtist extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel artistc1;
-    private javax.swing.JLabel artistc10;
     private javax.swing.JLabel artistc2;
     private javax.swing.JLabel artistc3;
     private javax.swing.JLabel artistc4;
@@ -976,7 +929,6 @@ public class AllArtist extends javax.swing.JFrame {
     private javax.swing.JLabel artistc8;
     private javax.swing.JLabel artistc9;
     private javax.swing.JLabel artistn1;
-    private javax.swing.JLabel artistn10;
     private javax.swing.JLabel artistn2;
     private javax.swing.JLabel artistn3;
     private javax.swing.JLabel artistn4;
@@ -990,7 +942,6 @@ public class AllArtist extends javax.swing.JFrame {
     private javax.swing.JLabel homeicon;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
-    private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel12;
     private javax.swing.JPanel jPanel13;
     private javax.swing.JPanel jPanel14;

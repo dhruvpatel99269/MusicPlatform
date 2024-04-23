@@ -22,6 +22,7 @@ public class MusicPlatform {
         //Dashboard ads = new Dashboard();
         //Songs ads=new Songs();
         SignUp ads=new SignUp();
+        //Subscription ads=new Subscription();
         //Slider ads = new Slider();
         //Artist1 ads=new Artist1();
         //List ads=new List();

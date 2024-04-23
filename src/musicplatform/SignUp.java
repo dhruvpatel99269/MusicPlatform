@@ -44,6 +44,16 @@ public class SignUp extends javax.swing.JFrame {
         }
     }
 
+    private boolean isValidPassword(String password) {
+        // Validate password format: at least one uppercase, one lowercase, and one digit
+        return password.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).+$");
+    }
+
+    private boolean isValidEmail(String email) {
+        // Validate email format: must contain @gmail.com
+        return email.matches(".+@gmail\\.com");
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -207,49 +217,59 @@ public class SignUp extends javax.swing.JFrame {
         String emailinput = email.getText(); // Assuming you have a text field for email input
         String usertype = "user";
 
-        String url = "jdbc:mysql://localhost:3306/mydb";
-        String user = "root";
-        String dbPassword = "Dhruv@99269!";
+        // Validate email format
+        if (usernameinput.isEmpty() || passwordinput.isEmpty() || emailinput.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Please fill in all fields!", "Error", JOptionPane.ERROR_MESSAGE);
+        } else if (!isValidEmail(emailinput)) {
+            JOptionPane.showMessageDialog(null, "Please enter your Google account email (e.g., user@gmail.com).", "Error", JOptionPane.ERROR_MESSAGE);
+        } else if (!isValidPassword(passwordinput)) {
+            JOptionPane.showMessageDialog(null, "Password must contain at least one uppercase letter, one lowercase letter, and one digit.", "Error", JOptionPane.ERROR_MESSAGE);
+        } else {
+            // Proceed with database operations
+            String url = "jdbc:mysql://localhost:3306/mydb";
+            String user = "root";
+            String dbPassword = "Dhruv@99269!";
 
-        try (java.sql.Connection connection = DriverManager.getConnection(url, user, dbPassword)) {
-            // Check if the username already exists
-            String checkQuery = "SELECT * FROM user WHERE username = ?";
-            try (java.sql.PreparedStatement checkStatement = connection.prepareStatement(checkQuery)) {
-                checkStatement.setString(1, usernameinput);
-                java.sql.ResultSet resultSet = checkStatement.executeQuery();
+            try (java.sql.Connection connection = DriverManager.getConnection(url, user, dbPassword)) {
+                // Check if the username already exists
+                String checkQuery = "SELECT * FROM user WHERE username = ?";
+                try (java.sql.PreparedStatement checkStatement = connection.prepareStatement(checkQuery)) {
+                    checkStatement.setString(1, usernameinput);
+                    java.sql.ResultSet resultSet = checkStatement.executeQuery();
 
-                if (resultSet.next()) {
-                    JOptionPane.showMessageDialog(null, "Username already exists!", "Error", JOptionPane.ERROR_MESSAGE);
-                } else {
-                    // Username does not exist, proceed with insertion
-                    String insertQuery = "INSERT INTO user (username, password, email, usertype) VALUES (?, ?, ?, ?)";
-                    try (java.sql.PreparedStatement statement = connection.prepareStatement(insertQuery)) {
-                        statement.setString(1, usernameinput);
-                        statement.setString(2, passwordinput);
-                        statement.setString(3, emailinput);
-                        statement.setString(4, usertype);
+                    if (resultSet.next()) {
+                        JOptionPane.showMessageDialog(null, "Username already exists!", "Error", JOptionPane.ERROR_MESSAGE);
+                    } else {
+                        // Username does not exist and password format is valid, proceed with insertion
+                        String insertQuery = "INSERT INTO user (username, password, email, usertype) VALUES (?, ?, ?, ?)";
+                        try (java.sql.PreparedStatement statement = connection.prepareStatement(insertQuery)) {
+                            statement.setString(1, usernameinput);
+                            statement.setString(2, passwordinput);
+                            statement.setString(3, emailinput);
+                            statement.setString(4, usertype);
 
-                        int rowsInserted = statement.executeUpdate();
+                            int rowsInserted = statement.executeUpdate();
 
-                        if (rowsInserted > 0) {
-                            JOptionPane.showMessageDialog(null, "User added successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
-                        } else {
-                            JOptionPane.showMessageDialog(null, "User creation failed!", "Error", JOptionPane.ERROR_MESSAGE);
+                            if (rowsInserted > 0) {
+                                JOptionPane.showMessageDialog(null, "User added successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+                            } else {
+                                JOptionPane.showMessageDialog(null, "User creation failed!", "Error", JOptionPane.ERROR_MESSAGE);
+                            }
+                        } catch (SQLException ex) {
+                            System.err.println("Error executing insertion query: " + ex.getMessage());
                         }
-                    } catch (SQLException ex) {
-                        System.err.println("Error executing insertion query: " + ex.getMessage());
                     }
+                } catch (SQLException ex) {
+                    System.err.println("Error checking username existence: " + ex.getMessage());
                 }
             } catch (SQLException ex) {
-                System.err.println("Error checking username existence: " + ex.getMessage());
+                System.err.println("Error connecting to the database: " + ex.getMessage());
             }
-        } catch (SQLException ex) {
-            System.err.println("Error connecting to the database: " + ex.getMessage());
-        }
 
-        dispose();
-        SignIn ads = new SignIn();
-        ads.setVisible(true);
+            dispose();
+            SignIn ads = new SignIn();
+            ads.setVisible(true);
+        }
     }//GEN-LAST:event_signupbtnActionPerformed
 
     private void passwordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passwordActionPerformed

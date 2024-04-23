@@ -4,24 +4,29 @@
  */
 package musicplatform;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import javax.swing.JFrame;
 
 /**
  *
  * @author DHRUV
  */
 public class Profile extends javax.swing.JFrame {
-    int userId = UserData.getUserId();  
+
+    int userId = UserData.getUserId();
+
     /**
      * Creates new form Profile
      */
     public Profile() {
-        initComponents();              
+        initComponents();
         fetchUserDetails(userId); // Call the method to fetch user details
+        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
     }
 
     private void fetchUserDetails(int userId) {
@@ -347,34 +352,114 @@ public class Profile extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void removeAccountBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeAccountBtnActionPerformed
-        // TODO add your handling code here:
-        if (userId != -1) { // Check if a valid user ID is obtained
-            String deleteQuery = "DELETE FROM user WHERE id = ?";
+        // TODO add your handling code here:        
 
-            try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/mydb", "root", "Dhruv@99269!")) {
-                try (PreparedStatement statement = connection.prepareStatement(deleteQuery)) {
-                    statement.setInt(1, userId);
-
-                    int rowsAffected = statement.executeUpdate();
-                    if (rowsAffected > 0) {
-                        System.out.println("User account deleted successfully.");
-                        dispose();
-                        SignUp ads=new SignUp();
-                        ads.setVisible(true);                        
-                        // Optionally, perform any UI updates or notifications
-                    } else {
-                        System.out.println("No user account found with the specified ID.");
-                        // Optionally, display an error message or handle accordingly
+        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/mydb", "root", "Dhruv@99269!")) {
+            String checkPlaylistRacksQuery = "SELECT COUNT(*) AS count FROM playlistracks WHERE userid = ?";
+            try (PreparedStatement checkPlaylistRacksStatement = connection.prepareStatement(checkPlaylistRacksQuery)) {
+                checkPlaylistRacksStatement.setInt(1, userId);
+                try (ResultSet playlistRacksResultSet = checkPlaylistRacksStatement.executeQuery()) {
+                    if (playlistRacksResultSet.next()) {
+                        int playlistRacksCount = playlistRacksResultSet.getInt("count");
+                        if (playlistRacksCount > 0) {
+                            // User ID exists in the playlistracks table, proceed with deletion
+                            String deletePlaylistRacksQuery = "DELETE FROM playlistracks WHERE userid = ?";
+                            try (PreparedStatement deletePlaylistRacksStatement = connection.prepareStatement(deletePlaylistRacksQuery)) {
+                                deletePlaylistRacksStatement.setInt(1, userId);
+                                int playlistRacksRowsAffected = deletePlaylistRacksStatement.executeUpdate();
+                                if (playlistRacksRowsAffected > 0) {
+                                    System.out.println("User ID " + userId + " deleted from playlistracks table.");
+                                    // Optionally, perform any additional actions after deletion
+                                } else {
+                                    System.out.println("Failed to delete user ID " + userId + " from playlistracks table.");
+                                    // Optionally, display an error message or handle accordingly
+                                }
+                            } catch (SQLException ex) {
+                                System.err.println("Error executing delete playlistracks query: " + ex.getMessage());
+                            }
+                        } else {
+                            System.out.println("User ID " + userId + " does not exist in the playlistracks table.");
+                            // Optionally, display a message indicating that the user ID doesn't exist
+                        }
                     }
-                } catch (SQLException ex) {
-                    System.err.println("Error executing delete query: " + ex.getMessage());
                 }
             } catch (SQLException ex) {
-                System.err.println("Error connecting to the database: " + ex.getMessage());
+                System.err.println("Error executing check playlistracks query: " + ex.getMessage());
             }
-        } else {
-            System.out.println("Invalid user ID.");
-            // Optionally, display an error message or handle accordingly
+
+            // Check if the user ID exists in the playlist table
+            String checkPlaylistQuery = "SELECT COUNT(*) AS count FROM playlists WHERE uid = ?";
+            try (PreparedStatement checkPlaylistStatement = connection.prepareStatement(checkPlaylistQuery)) {
+                checkPlaylistStatement.setInt(1, userId);
+                try (ResultSet playlistResultSet = checkPlaylistStatement.executeQuery()) {
+                    if (playlistResultSet.next()) {
+                        int playlistCount = playlistResultSet.getInt("count");
+                        if (playlistCount > 0) {
+                            // User ID exists in the playlist table, proceed with deletion
+                            String deletePlaylistQuery = "DELETE FROM playlists WHERE uid = ?";
+                            try (PreparedStatement deletePlaylistStatement = connection.prepareStatement(deletePlaylistQuery)) {
+                                deletePlaylistStatement.setInt(1, userId);
+                                int playlistRowsAffected = deletePlaylistStatement.executeUpdate();
+                                if (playlistRowsAffected > 0) {
+                                    System.out.println("User ID " + userId + " deleted from playlist table.");
+                                    // Optionally, perform any additional actions after deletion
+                                } else {
+                                    System.out.println("Failed to delete user ID " + userId + " from playlist table.");
+                                    // Optionally, display an error message or handle accordingly
+                                }
+                            } catch (SQLException ex) {
+                                System.err.println("Error executing delete playlist query: " + ex.getMessage());
+                            }
+                        } else {
+                            System.out.println("User ID " + userId + " does not exist in the playlist table.");
+                            // Optionally, display a message indicating that the user ID doesn't exist
+                        }
+                    }
+                }
+            } catch (SQLException ex) {
+                System.err.println("Error executing check playlist query: " + ex.getMessage());
+            }
+
+            // Repeat the above process for the playlistracks table and user table
+            // Check if the user ID exists in the user table
+            String checkUserQuery = "SELECT COUNT(*) AS count FROM user WHERE id = ?";
+            try (PreparedStatement checkUserStatement = connection.prepareStatement(checkUserQuery)) {
+                checkUserStatement.setInt(1, userId);
+                try (ResultSet userResultSet = checkUserStatement.executeQuery()) {
+                    if (userResultSet.next()) {
+                        int userCount = userResultSet.getInt("count");
+                        if (userCount > 0) {
+                            // User ID exists in the user table, proceed with deletion
+                            String deleteUserQuery = "DELETE FROM user WHERE id = ?";
+                            try (PreparedStatement deleteUserStatement = connection.prepareStatement(deleteUserQuery)) {
+                                deleteUserStatement.setInt(1, userId);
+                                int userRowsAffected = deleteUserStatement.executeUpdate();
+                                if (userRowsAffected > 0) {
+                                    System.out.println("User ID " + userId + " deleted from user table.");
+                                    // Optionally, perform any additional actions after deletion
+                                    dispose();
+                                    SignUp ads=new SignUp();
+                                    ads.setVisible(true);
+                                } else {
+                                    System.out.println("Failed to delete user ID " + userId + " from user table.");
+                                    // Optionally, display an error message or handle accordingly
+                                }
+                            } catch (SQLException ex) {
+                                System.err.println("Error executing delete user query: " + ex.getMessage());
+                            }
+                        } else {
+                            System.out.println("User ID " + userId + " does not exist in the user table.");
+                            // Optionally, display a message indicating that the user ID doesn't exist
+                        }
+                    }
+                }
+                
+                
+            } catch (SQLException ex) {
+                System.err.println("Error executing check user query: " + ex.getMessage());
+            }
+        } catch (SQLException ex) {
+            System.err.println("Error connecting to the database: " + ex.getMessage());
         }
     }//GEN-LAST:event_removeAccountBtnActionPerformed
 

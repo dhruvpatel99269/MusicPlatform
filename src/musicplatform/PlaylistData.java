@@ -9,6 +9,28 @@ package musicplatform;
  * @author DHRUV
  */
 public class PlaylistData {
+    private boolean isPlaying = false;
+    
+    private static int trackId;
+    
+    public static int getTrackId() {
+        return trackId;
+    }
+    
+    public static void setTrackId(int trackId) {
+        PlaylistData.trackId = trackId;
+    }
+    
+    private static int playlistId;
+    
+    public static int getPlaylistId() {
+        return playlistId;
+    }
+    
+    public static void setPlaylistId(int playlistId) {
+        PlaylistData.playlistId = playlistId;
+    }
+    
     private static int playlistId1;
 
     public static int getPlaylistId1() {
